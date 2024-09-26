@@ -28,17 +28,16 @@ You can access the dataset [here](https://drive.google.com/drive/u/0/folders/1mq
 ## Setup 🛠️
 
 ### 1. Clone the repository
-```bash
+
 !git clone https://github.com/TejaswiniVasu/Movie-Recommendation-System.git
 cd Movie-Recommendation-System
 
 
 2. Install dependencies
-bash
-Copy code
+
+
 !pip install -r requirements.txt
 3. Run the app
-bash
-Copy code
+
 !streamlit run app.py
 
