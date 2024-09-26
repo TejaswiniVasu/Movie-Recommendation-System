@@ -32,7 +32,8 @@ st.title("🎬 Movie Recommender System Using Machine Learning")
 st.write("Select a movie from the dropdown to get recommendations")
 
 # Load the dataset
-movies_df = pd.read_csv('/content/drive/MyDrive/Movie_Recommendation_System/cleaned_rotten_tomatoes_movies.csv')
+movies_df = pd.read_csv('cleaned_rotten_tomatoes_movies.csv')  # No need for full path if it's in the same directory
+
 
 # Dropdown for movie selection
 selected_movie = st.selectbox("Select a movie", movies_df['title'].unique())
