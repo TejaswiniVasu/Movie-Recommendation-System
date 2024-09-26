@@ -9,19 +9,14 @@ class AppException(Exception):
 
 class Recommendation:
     def __init__(self):
-        # Load the dataset (make sure this is correct and in the same repo)
+        # Load the dataset
         self.movies = pd.read_csv('cleaned_rotten_tomatoes_movies.csv')
     
-    def train_engine(self):
-        # Add the training logic here (if applicable)
-        st.write("Training recommendation engine...")
-
     def recommend(self, selected_movie):
         # Replace this logic with your actual recommendation logic
         # This should return recommended movie names and poster URLs
         
-        # Dummy logic to simulate recommendation
-        # Replace with your actual logic
+        # Dummy logic to simulate recommendation (replace with real recommendation logic)
         recommended_movies = self.movies.sample(5)
         recommended_movie_names = recommended_movies['title'].tolist()
         recommended_movie_posters = ['https://via.placeholder.com/150'] * 5  # Replace with actual poster URLs
@@ -52,9 +47,29 @@ class Recommendation:
         except Exception as e:
             raise AppException("Error in generating recommendations", e)
 
+# Add Netflix style colors with Markdown and HTML
+st.markdown("""
+    <style>
+        .stApp {
+            background-color: #141414;  /* Netflix black background */
+            color: white;  /* Netflix text color */
+        }
+        h1 {
+            color: #E50914;  /* Netflix red for header */
+        }
+        .css-1offfwp e1tzin5v0 {
+            background-color: #E50914;
+        }
+        .stButton button {
+            background-color: #E50914;  /* Netflix red button */
+            color: white;
+        }
+    </style>
+    """, unsafe_allow_html=True)
+
 if __name__ == "__main__":
-    st.header('Movie Recommender System')
-    st.text("This is a content-based recommendation system!")
+    st.header('🎬 Movie Recommender System Using Machine Learning')
+    st.markdown("<h3 style='color:#E50914;'>Select a movie from the dropdown to get recommendations</h3>", unsafe_allow_html=True)
 
     # Initialize the recommendation engine
     obj = Recommendation()
@@ -63,10 +78,6 @@ if __name__ == "__main__":
     movie_list = obj.movies['title'].values
     selected_movie = st.selectbox("Type or select a movie from the dropdown", movie_list)
 
-    # Button to trigger training
-    if st.button('Train Recommender System'):
-        obj.train_engine()
-    
     # Button to show movie recommendations
     if st.button('Show Recommendation'):
         obj.recommendations_engine(selected_movie)
