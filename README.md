@@ -3,7 +3,6 @@
 Welcome to the **Movie Recommendation System**, a content-based recommendation engine built using Python and machine learning techniques.
 
 ## 🔗 [Live Demo](https://movie-recommendation-system-pqgyiyrhpe2ft4unss9bap.streamlit.app/)
-[![Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://movie-recommendation-system-pqgyiyrhpe2ft4unss9bap.streamlit.app/)
 Click the link above to see the live version of the movie recommendation system in action!
 
 
