@@ -1,62 +1,72 @@
-import pickle
 import streamlit as st
-import requests
+import pandas as pd
+import sys
 
-# Function to fetch movie poster from TMDb API
-def fetch_poster(movie_id):
-    url = f"https://api.themoviedb.org/3/movie/{movie_id}?api_key=8265bd1679663a7ea12ac168da84d2e8&language=en-US"
-    data = requests.get(url).json()
-    poster_path = data.get('poster_path')
-    if poster_path:
-        full_path = f"https://image.tmdb.org/t/p/w500/{poster_path}"
-        return full_path
-    return "https://via.placeholder.com/500"  # Placeholder in case no poster found
+class AppException(Exception):
+    def __init__(self, message, original_exception):
+        super().__init__(f"{message}: {original_exception}")
+        self.original_exception = original_exception
 
-# Recommendation function to get similar movies
-def recommend(movie):
-    index = movies[movies['title'] == movie].index[0]
-    distances = sorted(list(enumerate(similarity[index])), reverse=True, key=lambda x: x[1])
-    recommended_movie_names = []
-    recommended_movie_posters = []
-    for i in distances[1:6]:  # Fetch top 5 movie recommendations
-        movie_id = movies.iloc[i[0]].movie_id
-        recommended_movie_posters.append(fetch_poster(movie_id))
-        recommended_movie_names.append(movies.iloc[i[0]].title)
-    return recommended_movie_names, recommended_movie_posters
-
-# Streamlit app interface
-st.header('🎬 Movie Recommender System')
-
-# Load the pickled movies list and similarity matrix
-movies = pickle.load(open('model/movie_list.pkl', 'rb'))
-similarity = pickle.load(open('model/similarity.pkl', 'rb'))
-
-# Select movie from dropdown
-movie_list = movies['title'].values
-selected_movie = st.selectbox(
-    "Type or select a movie from the dropdown",
-    movie_list
-)
-
-# Button to show movie recommendations
-if st.button('Show Recommendation'):
-    recommended_movie_names, recommended_movie_posters = recommend(selected_movie)
+class Recommendation:
+    def __init__(self):
+        # Load the dataset (make sure this is correct and in the same repo)
+        self.movies = pd.read_csv('cleaned_rotten_tomatoes_movies.csv')
     
-    # Display recommended movies and posters in columns
-    col1, col2, col3, col4, col5 = st.columns(5)
+    def train_engine(self):
+        # Add the training logic here (if applicable)
+        st.write("Training recommendation engine...")
+
+    def recommend(self, selected_movie):
+        # Replace this logic with your actual recommendation logic
+        # This should return recommended movie names and poster URLs
+        
+        # Dummy logic to simulate recommendation
+        # Replace with your actual logic
+        recommended_movies = self.movies.sample(5)
+        recommended_movie_names = recommended_movies['title'].tolist()
+        recommended_movie_posters = ['https://via.placeholder.com/150'] * 5  # Replace with actual poster URLs
+        return recommended_movie_names, recommended_movie_posters
+
+    def recommendations_engine(self, selected_movie):
+        try:
+            # Get movie names and poster URLs from recommendation system
+            recommended_movie_names, recommended_movie_posters = self.recommend(selected_movie)
+
+            # Create columns for displaying recommendations
+            col1, col2, col3, col4, col5 = st.columns(5)
+            with col1:
+                st.text(recommended_movie_names[0])
+                st.image(recommended_movie_posters[0])
+            with col2:
+                st.text(recommended_movie_names[1])
+                st.image(recommended_movie_posters[1])
+            with col3:
+                st.text(recommended_movie_names[2])
+                st.image(recommended_movie_posters[2])
+            with col4:
+                st.text(recommended_movie_names[3])
+                st.image(recommended_movie_posters[3])
+            with col5:
+                st.text(recommended_movie_names[4])
+                st.image(recommended_movie_posters[4])
+        except Exception as e:
+            raise AppException("Error in generating recommendations", e)
+
+if __name__ == "__main__":
+    st.header('Movie Recommender System')
+    st.text("This is a content-based recommendation system!")
+
+    # Initialize the recommendation engine
+    obj = Recommendation()
+
+    # Dropdown for movie selection
+    movie_list = obj.movies['title'].values
+    selected_movie = st.selectbox("Type or select a movie from the dropdown", movie_list)
+
+    # Button to trigger training
+    if st.button('Train Recommender System'):
+        obj.train_engine()
     
-    with col1:
-        st.text(recommended_movie_names[0])
-        st.image(recommended_movie_posters[0])
-    with col2:
-        st.text(recommended_movie_names[1])
-        st.image(recommended_movie_posters[1])
-    with col3:
-        st.text(recommended_movie_names[2])
-        st.image(recommended_movie_posters[2])
-    with col4:
-        st.text(recommended_movie_names[3])
-        st.image(recommended_movie_posters[3])
-    with col5:
-        st.text(recommended_movie_names[4])
-        st.image(recommended_movie_posters[4])
+    # Button to show movie recommendations
+    if st.button('Show Recommendation'):
+        obj.recommendations_engine(selected_movie)
