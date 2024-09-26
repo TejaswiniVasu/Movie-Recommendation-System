@@ -10,7 +10,7 @@ class AppException(Exception):
 class Recommendation:
     def __init__(self):
         # Load the dataset
-        self.movies = pd.read_csv('cleaned_rotten_tomatoes_movies.csv')
+        self.movies = pd.read_csv('/content/drive/MyDrive/Movie_Recommendation_System/cleaned_rotten_tomatoes_movies.csv')
     
     def recommend(self, selected_movie):
         # Replace this logic with your actual recommendation logic
@@ -68,7 +68,7 @@ st.markdown("""
     """, unsafe_allow_html=True)
 
 if __name__ == "__main__":
-    st.header('🎬 Movie Recommender System Using Machine Learning')
+    st.header('🎬 Movie Recommendation System')
     st.markdown("<h3 style='color:#E50914;'>Select a movie from the dropdown to get recommendations</h3>", unsafe_allow_html=True)
 
     # Initialize the recommendation engine
