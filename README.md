@@ -1,5 +1,29 @@
-# Movie-Recommendation-System
-A content-based movie recommender system built using Python and machine learning techniques.
+# Movie Recommendation System 🎬
 
-The dataset for this project is stored in Google Drive. You can access the files via the following links:
-https://drive.google.com/drive/u/0/folders/1mqxc2TINd7Mf01fAKIZdLg3fYWDzK284
+Welcome to the **Movie Recommendation System**, a content-based recommendation engine built using Python and machine learning techniques.
+
+## Features 📽️
+- **Personalized Movie Recommendations**: Using collaborative filtering and machine learning algorithms.
+- **Scalable**: Capable of handling large datasets.
+- **Interactive UI**: Streamlit-powered web interface for easy interaction.
+- **Deployment-Ready**: Easily deployable on platforms like Streamlit Cloud.
+
+## Project Overview 🧑‍💻
+This system uses the Rotten Tomatoes dataset and implements various recommendation algorithms including:
+- **Matrix Factorization** (SVD)
+- **Collaborative Filtering**
+- **Content-Based Filtering**
+
+## Dataset 🎥
+The dataset used in this project is obtained from Rotten Tomatoes and contains movie metadata and user reviews. It includes the following:
+- **Movies Dataset**: Information about movies (title, genre, director, etc.)
+- **Reviews Dataset**: Critic reviews, audience scores, etc.
+
+You can access the dataset [here](https://drive.google.com/drive/u/0/folders/1mqxc2TINd7Mf01fAKIZdLg3fYWDzK284).
+
+## Setup 🛠️
+
+### 1. Clone the repository
+```bash
+git clone https://github.com/TejaswiniVasu/Movie-Recommendation-System.git
+cd Movie-Recommendation-System
