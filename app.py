@@ -1,39 +1,36 @@
 import streamlit as st
 import pandas as pd
 
-# Basic app configuration and layout
-st.set_page_config(page_title="Movie Recommender System", page_icon="🎬", layout="wide")
-
-# CSS for background and styling
-st.markdown(
-    """
+# Custom CSS for styling
+st.markdown("""
     <style>
-    body {
-        background-color: #f0f2f6;
-    }
     .main {
-        background-color: white;
-        padding: 20px;
-        border-radius: 15px;
-        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+        background-color: #f0f0f5;
+        font-family: Arial, sans-serif;
+    }
+    h1 {
+        color: #ff4b4b;
+        font-size: 3em;
+        text-align: center;
     }
     .stButton>button {
-        color: white;
         background-color: #ff4b4b;
+        color: white;
         border-radius: 5px;
     }
+    .stButton>button:hover {
+        background-color: #ff6666;
+        color: white;
+    }
     </style>
-    """,
-    unsafe_allow_html=True,
-)
-
-# Title and subtitle
-st.title("🎬 Movie Recommender System Using Machine Learning")
-st.write("Select a movie from the dropdown to get recommendations")
+    """, unsafe_allow_html=True)
 
 # Load the dataset
-movies_df = pd.read_csv('cleaned_rotten_tomatoes_movies.csv')  # No need for full path if it's in the same directory
+movies_df = pd.read_csv('cleaned_rotten_tomatoes_movies.csv')
 
+# Title and subtitle
+st.markdown("<h1>🎬 Movie Recommender System</h1>", unsafe_allow_html=True)
+st.write("Select a movie from the dropdown to get recommendations:")
 
 # Dropdown for movie selection
 selected_movie = st.selectbox("Select a movie", movies_df['title'].unique())
@@ -41,13 +38,15 @@ selected_movie = st.selectbox("Select a movie", movies_df['title'].unique())
 # Show recommendation button
 if st.button('Show Recommendation'):
     # Placeholder for recommendation logic
-    # Here we can filter and show similar movies
     st.write(f"You selected: **{selected_movie}**")
     
     # Dummy recommended movies (replace with actual recommendation logic)
-    recommended_movies = movies_df.sample(3)  # Sample 3 random movies for demonstration
+    recommended_movies = movies_df.sample(5)  # Sample 5 random movies for demonstration
     
-    st.write("Recommended Movies:")
-    for index, row in recommended_movies.iterrows():
-        st.write(row['title'])
-        st.image('https://via.placeholder.com/150')  # Placeholder image URL, replace with actual poster links
+    st.write("### Recommended Movies:")
+    # Display recommended movies and placeholder images
+    cols = st.columns(5)  # Display movies in a row
+    for idx, col in enumerate(cols):
+        with col:
+            col.write(recommended_movies.iloc[idx]['title'])
+            col.image('https://via.placeholder.com/150', width=150)  # Placeholder image
