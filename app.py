@@ -9,8 +9,9 @@ class AppException(Exception):
 
 class Recommendation:
     def __init__(self):
-        # Load the dataset
-        movies_df = pd.read_csv('/content/drive/MyDrive/Movie_Recommendation_System/cleaned_rotten_tomatoes_movies.csv')
+        # Load the dataset from the repository
+        self.movies = pd.read_csv('cleaned_rotten_tomatoes_movies.csv')  # Use relative path here
+
     
     def recommend(self, selected_movie):
         # Replace this logic with your actual recommendation logic
