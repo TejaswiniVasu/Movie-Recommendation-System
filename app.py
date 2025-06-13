@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-import sys
+from pathlib import Path
 
 class AppException(Exception):
     def __init__(self, message, original_exception):
@@ -9,16 +9,18 @@ class AppException(Exception):
 
 class Recommendation:
     def __init__(self):
-        # Load the dataset from the repository
-        self.movies = pd.read_csv('cleaned_rotten_tomatoes_movies.csv')  # Use relative path here
+        """Load the movie dataset using a path relative to this file."""
+        data_path = Path(__file__).parent / "cleaned_rotten_tomatoes_movies.csv"
+        self.movies = pd.read_csv(data_path)
 
     
     def recommend(self, selected_movie):
         # Replace this logic with your actual recommendation logic
         # This should return recommended movie names and poster URLs
-        
+
         # Dummy logic to simulate recommendation (replace with real recommendation logic)
-        recommended_movies = self.movies.sample(5)
+        candidates = self.movies[self.movies['title'] != selected_movie]
+        recommended_movies = candidates.sample(5)
         recommended_movie_names = recommended_movies['title'].tolist()
         recommended_movie_posters = ['https://via.placeholder.com/150'] * 5  # Replace with actual poster URLs
         return recommended_movie_names, recommended_movie_posters
@@ -58,7 +60,7 @@ st.markdown("""
         h1 {
             color: #E50914;  /* Netflix red for header */
         }
-        .css-1offfwp e1tzin5v0 {
+        .css-1offfwp.e1tzin5v0 {
             background-color: #E50914;
         }
         .stButton button {
